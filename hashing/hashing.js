@@ -19,7 +19,7 @@ var Blockchain = {
     blocks: [],
 };
 
-    // Genesis block
+// Genesis block
 Blockchain.blocks.push({
     index: 0,
     hash: "000000",
@@ -27,29 +27,28 @@ Blockchain.blocks.push({
     timestamp: Date.now(),
 });
 
-
 const verifyChain = () => {
-    for (let i = 0; i < Blockchain.blocks.length; i++) {
-  let block = Blockchain.blocks[i];
-  let hashInput = block.index.toString()+ block.data + block.timestamp.toString() + block.hash; 
-    if (Blockchain.blocks.length > 1) {
-    if (block.data !== null 
-        && block.data !== undefined 
-        && block.prevHash !== null 
-        && block.prevHash !== undefined
-        && block.prevHash === Blockchain.blocks[i - 1].hash
-       ) {
-            console.log('valid block');
-      } else {
-        if (block.index === 0 && block.hash === '000000') {
+  for (let i = 0; i < Blockchain.blocks.length; i++) {
+    let block = Blockchain.blocks[i];
+    let hashInput = block.index.toString()+ block.data + block.timestamp.toString() + block.hash; 
+     if (Blockchain.blocks.length > 1) {
+       if (block.data !== null 
+          && block.data !== undefined 
+          && block.prevHash !== null 
+          && block.prevHash !== undefined
+          && block.prevHash === Blockchain.blocks[i - 1].hash
+        ) {
+          console.log('valid block');
+       } else {
+         if (block.index === 0 && block.hash === '000000') {
             console.log('first block');
-        } else {
-        console.log('invalid block');
-        }
-      }
-    }
-  }
-};
+         } else {
+            console.log('invalid block');
+         }
+       }
+     }
+   }
+ };
 
 const createBlock = () => {
   for (let x = Blockchain.blocks.length; x <= poem.length; x++) {
@@ -57,11 +56,11 @@ const createBlock = () => {
       let hashInput = x.toString() + poem[x] + blockTime.toString() + Blockchain.blocks[x-1].hash;
       let newBlock = {
         index: x,
-     hash: blockHash(hashInput),
-     data: poem[x - 1],
-     prevHash: Blockchain.blocks[x-1].hash,
-     timestamp: blockTime,
-        }
+        hash: blockHash(hashInput),
+        data: poem[x - 1],
+        prevHash: Blockchain.blocks[x-1].hash,
+        timestamp: blockTime,
+      }
       Blockchain.blocks.push(newBlock);
   }    
 };
@@ -69,7 +68,6 @@ const createBlock = () => {
 function blockHash(input) {
     return crypto.createHash("sha256").update(input).digest("hex");
 }
-
 
 createBlock();
 console.log(Blockchain)
