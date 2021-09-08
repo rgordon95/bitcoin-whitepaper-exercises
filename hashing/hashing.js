@@ -19,7 +19,7 @@ var Blockchain = {
 	blocks: [],
 };
 
-// Genesis block
+	// Genesis block
 Blockchain.blocks.push({
 	index: 0,
 	hash: "000000",
@@ -27,9 +27,17 @@ Blockchain.blocks.push({
 	timestamp: Date.now(),
 });
 
-// TODO: insert each line into blockchain
-// for (let line of poem) {
-// }
+let createBlock = () => {
+  for (let x = Blockchain.blocks.length; x < poem.length; x++) {
+       let newBlock = {
+   	 index: x,
+	 hash: "00000" + x.toString(),
+	 data: poem[x],
+	 timestamp: Date.now(),
+        }
+	  Blockchain.blocks.push(newBlock);
+  }	
+};
 
 // console.log(`Blockchain is valid: ${verifyChain(Blockchain)}`);
 
@@ -41,3 +49,7 @@ function blockHash(bl) {
 		// TODO: use block data to calculate hash
 	).digest("hex");
 }
+
+
+createBlock();
+console.log(Blockchain)
